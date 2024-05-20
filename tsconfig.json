@@ -5,10 +5,16 @@
 		"allowJs": true,
 		"checkJs": true,
 		"esModuleInterop": true,
+		"allowImportingTsExtensions": true,
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": true
-	}
+		"strict": true,
+		"target": "ESNext",
+    	"module": "ESNext",
+    	"outDir": "./dist",
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules"]
 }

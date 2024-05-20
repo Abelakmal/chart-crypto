@@ -3,6 +3,7 @@ import { imAdmin, imSuper } from '$lib/utils';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 import type { Handle } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
+import type { Database, Tracking } from './DatabaseDefinitions';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.supabase = createSupabaseServerClient({
@@ -78,7 +79,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// }
 
 	const res = await event.locals.supabase
-		.from('tracking')
+		.from<any,any>('tracking')
 		.insert([{ user: session?.user, event: event.url }]);
 	if (res.error) {
 		console.log(res.error);
