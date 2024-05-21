@@ -31,6 +31,7 @@ router.get('/:id', async (req: Request, res: Response) => {
  * jika state sell harga price_now terakhir akan dikurangkan dengan data terbaru yg diinput.
  * date pada table price_coin akan ditambahkan secara otomatis 1 day dari date terakhir.
  * setelah data ditambakan price_now pada table coin akan diperbarui berdasarkan data terbaru.
+ * @requires {price_now , coin_id , date(hanya pertama kali input data), state(optional => buy or sell)}
  * @returns {Promise<void>}
  */
 router.post('/', async (req: Request, res: Response) => {
@@ -74,31 +75,32 @@ router.post('/', async (req: Request, res: Response) => {
 
 /**
  * api PACT untuk mengedit price_coin by id
- * input {price_now,coin_id date}
+ * @requires {price_now,coin_id date}} and param id
  */
 router.patch('/:id', async (req: Request, res: Response) => {
-    try {
-        await supabaseAdminClient.from('price_coin').update(req.body).eq('id', req.params.id)
-        res.status(200).send({message:"success update data"})
-    } catch (error) {
-         // jika terjadi error
+	try {
+		await supabaseAdminClient.from('price_coin').update(req.body).eq('id', req.params.id)
+		res.status(200).send({ message: "success update data" })
+	} catch (error) {
+		// jika terjadi error
 		console.log(error);
 		res.status(500).send({ message: 'Error please Concact admin ' });
-    }
+	}
 })
 
 /**
  * api delete untuk menghapus data price_coin by id
+ * @requires params id
  */
 router.delete('/:id', async (req: Request, res: Response) => {
-    try {
-        await supabaseAdminClient.from('price_coin').delete().eq('id', req.params.id)
-        res.status(200).send({message:"success delete data"})
-    } catch (error) {
-         // jika terjadi error
+	try {
+		await supabaseAdminClient.from('price_coin').delete().eq('id', req.params.id)
+		res.status(200).send({ message: "success delete data" })
+	} catch (error) {
+		// jika terjadi error
 		console.log(error);
 		res.status(500).send({ message: 'Error please Concact admin ' });
-    }
+	}
 })
 
 export default router;

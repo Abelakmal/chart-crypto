@@ -12,13 +12,11 @@
 	const action = () => {
 		toast.push('TOAST!', { classes: ['alert-success'] });
 	};
-	
 
 	let crypto: any = [];
 	const unsubscribe_crypto = data.crypto.subscribe((value: any) => {
 		crypto = value;
 	});
-
 
 	let data_coin: any = [];
 	const unsubscribe_coin = data.coin.subscribe((value: any) => {
@@ -32,8 +30,6 @@
 
 	let chart: any = 'bar';
 
-
-
 	/**
 	 * handleBuy menanangi untuk menambah data dengan state "buy".
 	 * Jika data  telah ditambahkan,fungsi ini kan memperbarui data crypto.
@@ -41,9 +37,9 @@
 	 * Example:
 	 * await handleBuy()
 	 */
-	const handleBuy = async (id:number): Promise<void> => {
+	const handleBuy = async (id: number): Promise<void> => {
 		// menambahkan data dengan state 'buy'
-		await addCrypto('buy',id);
+		await addCrypto('buy', id);
 
 		//update data dengan data crypto baru
 		data.crypto.set(await getCryptoById(id));
@@ -56,9 +52,9 @@
 	 * Example:
 	 * await handleSell()
 	 */
-	const handleSell = async (id:number): Promise<void> => {
+	const handleSell = async (id: number): Promise<void> => {
 		// menambahkan data dengan state 'sell'
-		await addCrypto('sell',id);
+		await addCrypto('sell', id);
 
 		//update data dengan data crypto baru
 		data.crypto.set(await getCryptoById(id));
@@ -72,11 +68,10 @@
 	 * melakukan filter data chart berdasarkan  id coin yang diambil dari table coin.
 	 * @param event
 	 */
-	const handleCoin = async(event:any) => {
-		const id = event.target.value
+	const handleCoin = async (event: any) => {
+		const id = event.target.value;
 		crypto = await getCryptoById(id);
-	}
-
+	};
 </script>
 
 <svelte:head>
@@ -141,12 +136,12 @@ ADMIN
 <div class="card flex-col bg-base-100 shadow-xl">
 	<div class="stats bg-primary text-primary-content">
 		<div class="stat">
-			<div class="stat-value">{crypto.coin[0].name}</div>
-			<p>Realise Date : {crypto.coin[0].realise_date}</p>
+			<div class="stat-value">{crypto?.coin[0].name}</div>
+			<p>Realise Date : {crypto?.coin[0].realise_date}</p>
 			<select class="text-xl font-bold w-max h-max p-1" on:change={handleCoin}>
 				<option>list coin</option>
-				{#each data_coin.coin as coin }
-				<option value={coin.id}>{coin.name}</option>
+				{#each data_coin.coin as coin}
+					<option value={coin.id}>{coin.name}</option>
 				{/each}
 			</select>
 		</div>
